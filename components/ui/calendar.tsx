@@ -36,8 +36,9 @@ function Calendar({
       )}
       captionLayout={captionLayout}
       formatters={{
+        // Use a fixed locale to keep SSR/client markup consistent.
         formatMonthDropdown: (date) =>
-          date.toLocaleString('default', { month: 'short' }),
+          date.toLocaleString('en-US', { month: 'short' }),
         ...formatters,
       }}
       classNames={{
@@ -190,7 +191,8 @@ function CalendarDayButton({
       ref={ref}
       variant="ghost"
       size="icon"
-      data-day={day.date.toLocaleDateString()}
+      // Keep the serialized date stable across server/client renders.
+      data-day={day.date.toISOString()}
       data-selected-single={
         modifiers.selected &&
         !modifiers.range_start &&
