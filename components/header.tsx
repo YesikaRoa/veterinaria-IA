@@ -24,11 +24,12 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <img
-              src="/logo_circular.png"
+              src="/logo_zoom_circular.png"
               alt="Logo"
               className="h-30 w-30 object-contain rounded-full bg-white p-2"
               style={{ maxHeight: 90, maxWidth: 90 }}
             />
+            <h1 className="text-2xl font-bold text-white">Kindred Pet Care</h1>
           </Link>
 
           {/* Desktop Navigation */}

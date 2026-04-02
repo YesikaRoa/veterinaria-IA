@@ -13,15 +13,15 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-       url: '/logo_circular.png',
+       url: '/logo_zoom_circular.png',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/logo_circular.png',
+        url: '/logo_zoom_circular.png',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/logo_circular.png',
+        url: '/logo_zoom_circular.png',
         type: 'image/svg+xml',
       },
     ],

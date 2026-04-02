@@ -6,13 +6,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { MessageCircle, Clock, MapPin } from "lucide-react"
-
+import emailjs from '@emailjs/browser'
+import { useToast } from "@/hooks/use-toast"
 export function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: ""
   })
+  const { toast } = useToast()
+  const [isLoading, setIsLoading] = useState(false)
 
   const locationUrl = "https://www.google.com/maps/search/?api=1&query=Av.+de+la+Arboleda+452%2C+Col.+San+%C3%81ngel%2C+Ciudad+de+M%C3%A9xico"
 
@@ -37,13 +40,39 @@ export function ContactSection() {
     )
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
-    alert("¡Mensaje enviado! Te contactaremos pronto.")
+ // 2. Función para enviar
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  setIsLoading(true)
+
+  const SERVICE_ID = "service_kd8l7dw"
+  const TEMPLATE_ID = "template_qan685g" // El ID de la plantilla de contacto
+  const PUBLIC_KEY = "ZlaWi4rJSiRuofT5f"
+
+  try {
+    await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+    }, PUBLIC_KEY)
+
+    toast({
+      title: "¡Mensaje enviado!",
+      description: "Nos pondremos en contacto contigo pronto.",
+    })
+    
+    // Limpiar formulario
     setFormData({ name: "", email: "", message: "" })
+  } catch (error) {
+    toast({
+      variant: "destructive",
+      title: "Error",
+      description: "No se pudo enviar el mensaje. Inténtalo de nuevo.",
+    })
+  } finally {
+    setIsLoading(false)
   }
+}
 
   return (
     <section className="py-16 lg:py-24 bg-gray-50/50">

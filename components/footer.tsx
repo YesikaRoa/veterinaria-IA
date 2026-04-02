@@ -76,11 +76,11 @@ export function Footer() {
             <ul className="space-y-2">
               <li className="flex items-start gap-2 text-sm text-gray-600">
                 <span>📍</span>
-                <span>Dirección: Av. Principal 123, Ciudad</span>
+                <span>Dirección: Av. Principal de pueblo nuevo</span>
               </li>
               <li className="flex items-start gap-2 text-sm text-gray-600">
                 <span>📱</span>
-                <span>WhatsApp: +123 456 7890</span>
+                <span>WhatsApp: +58 412 769 0828</span>
               </li>
             </ul>
             <div className="flex items-center gap-4 pt-2">
@@ -96,7 +96,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-gray-100">
           <p className="text-center text-sm text-gray-500">
-            © 2024 Kindred Pet Care. All rights reserved.
+            © {new Date().getFullYear()} Kindred Pet Care. All rights reserved.
           </p>
         </div>
       </div>
