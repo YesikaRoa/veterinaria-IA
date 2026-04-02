@@ -18,12 +18,17 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-100">
+ <header className="sticky top-0 z-50 w-full bg-gradient-to-r from-green-700/80 via-green-600/70 to-green-500/60 backdrop-blur-lg border-b border-white/20 shadow-sm">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-25 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold text-gray-900">Kindred Pet Care</span>
+            <img
+              src="/logo_circular.png"
+              alt="Logo"
+              className="h-30 w-30 object-contain rounded-full bg-white p-2"
+              style={{ maxHeight: 90, maxWidth: 90 }}
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -32,26 +37,16 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-green-600 ${
-                  pathname === item.href
-                    ? "text-green-600 underline underline-offset-4"
-                    : "text-gray-600"
+                className={`text-lg font-medium transition-colors hover:text-green-200 ${
+                 pathname === item.href
+  ? "text-white font-semibold underline underline-offset-4"
+  : "text-white/80"
                 }`}
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button
-              asChild
-              className="bg-green-600 hover:bg-green-700 text-white rounded-full px-6"
-            >
-              <Link href="/contacto">Contáctanos</Link>
-            </Button>
-          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -85,14 +80,6 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
-              <Button
-                asChild
-                className="bg-green-600 hover:bg-green-700 text-white rounded-full w-fit"
-              >
-                <Link href="/contacto" onClick={() => setMobileMenuOpen(false)}>
-                  Contáctanos
-                </Link>
-              </Button>
             </div>
           </nav>
         )}

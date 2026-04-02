@@ -137,7 +137,7 @@ export default async function PetDetailPage({ params }: PetDetailPageProps) {
                 asChild
                 className="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white rounded-full px-8 py-6 text-lg"
               >
-                <a href="https://wa.me/5212345678901" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/584127690828" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="h-5 w-5 mr-2" />
                   Adoptar ahora
                   <ArrowRight className="h-5 w-5 ml-2" />
