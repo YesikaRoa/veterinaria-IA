@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,6 +13,29 @@ export function ContactSection() {
     email: "",
     message: ""
   })
+
+  const locationUrl = "https://www.google.com/maps/search/?api=1&query=Av.+de+la+Arboleda+452%2C+Col.+San+%C3%81ngel%2C+Ciudad+de+M%C3%A9xico"
+
+  const openCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocalización no soportada en tu navegador. Se abrirá la ubicación del negocio.")
+      window.open(locationUrl, "_blank", "noopener,noreferrer")
+      return
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords
+        const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`
+        window.open(url, "_blank", "noopener,noreferrer")
+      },
+      () => {
+        alert("No se pudo obtener tu ubicación. Se abrirá la ubicación del negocio.")
+        window.open(locationUrl, "_blank", "noopener,noreferrer")
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    )
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -117,7 +141,7 @@ export function ContactSection() {
                 variant="outline"
                 className="w-full rounded-full border-gray-300 bg-white hover:bg-gray-50"
               >
-                <a href="https://wa.me/5212345678901" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/584127690828" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="h-4 w-4 mr-2" />
                   Escribir por WhatsApp
                 </a>
@@ -143,13 +167,50 @@ export function ContactSection() {
                 <div>
                   <h5 className="font-semibold text-gray-900">Dirección</h5>
                   <p className="text-sm text-gray-600">
-                    Av. de la Arboleda 452, Col. San Ángel,<br />
-                    Ciudad de México.
+                   Kindred Pet Care<br />
                   </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 rounded-3xl border border-gray-200 bg-[#d9f7e2] p-4">
+          <div className="relative overflow-hidden rounded-3xl border border-green-200 bg-green-50">
+            <div className="h-64 bg-[linear-gradient(90deg,rgba(217,247,226,0.7),rgba(230,255,244,0.7))]" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="h-20 w-20 rounded-full bg-green-600/20 border border-green-400 flex items-center justify-center">
+                <span className="block h-8 w-8 rounded-full bg-green-600" />
+              </div>
+            </div>
+            <div
+              className="absolute left-4 bottom-4 bg-white/80 px-3 py-2 rounded-lg shadow-sm cursor-pointer"
+              onClick={openCurrentLocation}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  openCurrentLocation()
+                }
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/logo_circular.png"
+                  alt="Logo Kindred Pet Care"
+                  width={24}
+                  height={24}
+                  className="rounded-full"
+                />
+                <div>
+                  <p className="text-sm font-semibold text-green-700">Kindred Pet Care</p>
+                  <p className="text-xs text-gray-600">Estamos aquí</p>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

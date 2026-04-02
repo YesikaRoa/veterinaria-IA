@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Header } from "@/components/header"
@@ -5,6 +7,29 @@ import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 
 export default function ContactoPage() {
+  const openCurrentLocation = () => {
+    const locationUrl = "https://www.google.com/maps/search/?api=1&query=Av.+de+la+Arboleda+452%2C+Col.+San+%C3%81ngel%2C+Ciudad+de+M%C3%A9xico"
+
+    if (!navigator.geolocation) {
+      alert("Geolocalización no soportada. Se abrirá la ubicación del negocio.")
+      window.open(locationUrl, "_blank", "noopener,noreferrer")
+      return
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords
+        const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`
+        window.open(url, "_blank", "noopener,noreferrer")
+      },
+      () => {
+        alert("No se pudo obtener la ubicación. Se abrirá la ubicación del negocio.")
+        window.open(locationUrl, "_blank", "noopener,noreferrer")
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    )
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -15,52 +40,15 @@ export default function ContactoPage() {
         <section className="py-16 lg:py-24 bg-white">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-8 items-center">
-              {/* Map Image */}
+              {/* Image Card */}
               <div className="relative">
-                <div className="aspect-[4/3] rounded-3xl overflow-hidden bg-green-100 relative">
-                  {/* Map Illustration */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-200">
-                    <svg
-                      className="w-full h-full opacity-30"
-                      viewBox="0 0 400 300"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      {/* Grid pattern for map effect */}
-                      <defs>
-                        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#22c55e" strokeWidth="0.5" />
-                        </pattern>
-                      </defs>
-                      <rect width="100%" height="100%" fill="url(#grid)" />
-                      {/* Streets */}
-                      <line x1="0" y1="150" x2="400" y2="150" stroke="#22c55e" strokeWidth="3" />
-                      <line x1="200" y1="0" x2="200" y2="300" stroke="#22c55e" strokeWidth="3" />
-                      <line x1="50" y1="0" x2="350" y2="300" stroke="#22c55e" strokeWidth="2" />
-                    </svg>
-                  </div>
-                  
-                  {/* Location Pin */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-full">
-                    <div className="bg-green-600 p-3 rounded-full shadow-lg">
-                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                  </div>
-                  
-                  {/* Location Card */}
-                  <div className="absolute bottom-4 left-4 bg-white rounded-xl shadow-lg p-4 flex items-center gap-3">
-                    <div className="bg-green-100 p-2 rounded-lg">
-                      <svg className="h-5 w-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">Kindred Pet Care</p>
-                      <p className="text-xs text-gray-500">Estamos aquí</p>
-                    </div>
-                  </div>
+                <div className="aspect-[4/3] rounded-3xl overflow-hidden relative">
+                  <Image
+                    src="/animalitos.webp"
+                    alt="Kindred Pet Care"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </div>
 

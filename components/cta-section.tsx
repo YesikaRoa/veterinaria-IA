@@ -17,7 +17,7 @@ export function CTASection() {
             asChild
             className="bg-white hover:bg-gray-100 text-green-600 rounded-full px-8"
           >
-            <a href="https://wa.me/5212345678901" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/584127690828" target="_blank" rel="noopener noreferrer">
               <MessageCircle className="h-4 w-4 mr-2" />
               Agenda una cita ahora
             </a>
