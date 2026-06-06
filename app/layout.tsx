@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import { Chatbot } from '@/components/chatbot'
 import './globals.css'
 
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-       url: '/logo_zoom_circular.png',
+        url: '/logo_zoom_circular.png',
         media: '(prefers-color-scheme: light)',
       },
       {
@@ -40,7 +39,6 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         {children}
         <Chatbot />
-        <Analytics />
       </body>
     </html>
   )
