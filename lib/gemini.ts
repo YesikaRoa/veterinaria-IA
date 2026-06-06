@@ -48,11 +48,11 @@ export async function generateChatResponse(history: Message[], currentMessage: s
 
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
-    
+
     // Usar el modelo recomendado para texto y chat
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash",  
-      systemInstruction: systemPrompt 
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+      systemInstruction: systemPrompt
     });
 
     // Mapear el historial al formato que espera Gemini
@@ -76,7 +76,7 @@ export async function generateChatResponse(history: Message[], currentMessage: s
     // Enviar el nuevo mensaje
     const result = await chat.sendMessage(currentMessage);
     const responseText = result.response.text();
-    
+
     return responseText;
   } catch (error) {
     console.error("Error en generateChatResponse:", error);
