@@ -8,6 +8,79 @@ import { Input } from "@/components/ui/input"
 import { generateChatResponse, Message } from "@/lib/gemini"
 import { cn } from "@/lib/utils"
 
+function formatMessageContent(content: string, isUserMessage: boolean) {
+  const lines = content.split('\n');
+  const elements: React.ReactNode[] = [];
+  let currentList: React.ReactNode[] = [];
+  let isInsideList = false;
+
+  const renderTextWithBold = (text: string) => {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return (
+          <strong
+            key={index}
+            className={cn(
+              "font-bold",
+              isUserMessage ? "text-white" : "text-green-700 dark:text-green-400"
+            )}
+          >
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+      return part;
+    });
+  };
+
+  lines.forEach((line, index) => {
+    const bulletMatch = line.match(/^[\s]*[\*\-•]\s+(.*)/);
+
+    if (bulletMatch) {
+      const itemContent = bulletMatch[1];
+      isInsideList = true;
+      currentList.push(
+        <li key={`li-${index}`} className="list-disc ml-5 mt-1 leading-relaxed">
+          {renderTextWithBold(itemContent)}
+        </li>
+      );
+    } else {
+      if (isInsideList && currentList.length > 0) {
+        elements.push(
+          <ul key={`ul-${index}`} className="my-1.5 space-y-1">
+            {currentList}
+          </ul>
+        );
+        currentList = [];
+        isInsideList = false;
+      }
+
+      if (line.trim() === '') {
+        if (elements.length > 0) {
+          elements.push(<div key={`space-${index}`} className="h-2" />);
+        }
+      } else {
+        elements.push(
+          <p key={`p-${index}`} className="leading-relaxed my-1">
+            {renderTextWithBold(line)}
+          </p>
+        );
+      }
+    }
+  });
+
+  if (isInsideList && currentList.length > 0) {
+    elements.push(
+      <ul key="ul-end" className="my-1.5 space-y-1">
+        {currentList}
+      </ul>
+    );
+  }
+
+  return <div className="space-y-0.5 break-words">{elements}</div>;
+}
+
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -153,7 +226,7 @@ export function Chatbot() {
                       ? "bg-green-600 text-white rounded-br-none" 
                       : "bg-background border border-border rounded-bl-none text-foreground"
                   )}>
-                    {message.content}
+                    {formatMessageContent(message.content, message.role === "user")}
                   </div>
                 </div>
               </div>
