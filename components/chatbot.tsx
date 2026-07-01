@@ -188,8 +188,10 @@ export function Chatbot() {
       {/* Ventana de chat */}
       <div
         className={cn(
-          "transition-all duration-300 ease-in-out origin-bottom-right mb-4",
-          isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10 pointer-events-none"
+          "absolute right-0 bottom-full mb-4 transition-all duration-300 ease-in-out origin-bottom-right",
+          isOpen
+            ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 scale-95 translate-y-4 pointer-events-none"
         )}
       >
         <Card className="w-80 sm:w-96 h-[500px] shadow-2xl flex flex-col border-green-600/20">
